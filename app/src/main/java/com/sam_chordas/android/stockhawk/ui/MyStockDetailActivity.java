@@ -119,7 +119,7 @@ public class MyStockDetailActivity extends AppCompatActivity implements
         LineData data = new LineData(xVals, set1);
         // set data
         mChart.setData(data);
-        mChart.setDescription("Stock value over time");
+        mChart.setDescription(this.getResources().getString(R.string.stock_graph));
         mChart.setPinchZoom(true);
         mChart.notifyDataSetChanged();
     }

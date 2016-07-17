@@ -2,12 +2,15 @@ package com.sam_chordas.android.stockhawk.rest;
 
 import android.content.ContentProviderOperation;
 import android.util.Log;
+
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
-import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by sam_chordas on 10/8/15.
@@ -17,6 +20,13 @@ public class Utils {
   private static String LOG_TAG = Utils.class.getSimpleName();
 
   public static boolean showPercent = true;
+    private static final String QUERY = "query";
+    private static final String COUNT = "count";
+    private static final String RESULTS = "results";
+    private static final String QUOTE = "quote";
+    private static final String CHANGE = "Change";
+    private static final String BID = "Bid";
+    private static final String CHANGEINPERCENT = "ChangeinPercent";
 
   public static ArrayList quoteJsonToContentVals(String JSON){
     ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
@@ -25,14 +35,14 @@ public class Utils {
     try{
       jsonObject = new JSONObject(JSON);
       if (jsonObject != null && jsonObject.length() != 0){
-        jsonObject = jsonObject.getJSONObject("query");
-        int count = Integer.parseInt(jsonObject.getString("count"));
+        jsonObject = jsonObject.getJSONObject(QUERY);
+        int count = Integer.parseInt(jsonObject.getString(COUNT));
         if (count == 1){
-          jsonObject = jsonObject.getJSONObject("results")
-              .getJSONObject("quote");
+          jsonObject = jsonObject.getJSONObject(RESULTS)
+              .getJSONObject(QUOTE);
           batchOperations.add(buildBatchOperation(jsonObject));
         } else{
-          resultsArray = jsonObject.getJSONObject("results").getJSONArray("quote");
+          resultsArray = jsonObject.getJSONObject(RESULTS).getJSONArray(QUOTE);
 
           if (resultsArray != null && resultsArray.length() != 0){
             for (int i = 0; i < resultsArray.length(); i++){
@@ -74,11 +84,11 @@ public class Utils {
     ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
         QuoteProvider.Quotes.CONTENT_URI);
     try {
-      String change = jsonObject.getString("Change");
-      builder.withValue(QuoteColumns.SYMBOL, jsonObject.getString("symbol"));
-      builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(jsonObject.getString("Bid")));
+      String change = jsonObject.getString(CHANGE);
+      builder.withValue(QuoteColumns.SYMBOL, jsonObject.getString(QuoteColumns.SYMBOL));
+      builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(jsonObject.getString(BID)));
       builder.withValue(QuoteColumns.PERCENT_CHANGE, truncateChange(
-          jsonObject.getString("ChangeinPercent"), true));
+          jsonObject.getString(CHANGEINPERCENT), true));
       builder.withValue(QuoteColumns.CHANGE, truncateChange(change, false));
       builder.withValue(QuoteColumns.ISCURRENT, 1);
       if (change.charAt(0) == '-'){

@@ -4,17 +4,19 @@
     <string name="action_example">Example action</string>
 
     <string name="action_settings">Settings</string>
-    <string name="action_change_units">Change Units</string>
-    <string name="symbol_search">Symbol Search</string>
+    <string name="action_change_units" translatable="false">Change Units</string>
+    <string name="symbol_search" translatable="false">Symbol Search</string>
     <string name="content_test">Search for a Stock Symbol</string>
-    <string name="input_hint">FB</string>
+    <string name="input_hint" translatable="false">FB</string>
     <string name="input_prefill"></string>
 
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
     <string name="old_list">Oops!! Internet is not available. Displaying old list.</string>
+    <string name="stock_graph">Stock value over time</string>
+    <string name="stock_already_exist">This stock is already saved!</string>
 
     <!-- Talk back messages-->
-    <string name="cd_line_graph">Chart for Stock value over time.</string>
-    <string name="cd_fab_button">Add more stock items.</string>
-    <string name="cd_stock_list">Show the bid price for added stocks.</string>
+    <string name="cd_line_graph" translatable="false">Chart for Stock value over time.</string>
+    <string name="cd_fab_button" translatable="false">Add more stock items.</string>
+    <string name="cd_stock_list" translatable="false">Show the bid price for added stocks.</string>
 </resources>
